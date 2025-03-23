@@ -2,103 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sparkleverse Genesis | Quantum Portal for Conscious Creation</title>
-
-  <!-- META TAGS FOR SOCIAL -->
-  <meta name="description" content="Sparkleverse Genesis | Quantum Portal for Conscious Creation">
-  <meta property="og:title" content="Sparkleverse Genesis | Quantum Portal for Conscious Creation" />
-  <meta property="og:description" content="You are the shift. Welcome to the multiverse." />
-  <meta property="og:image" content="https://sparkleverse.io/preview.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#000000" />
-
-  <!-- FAVICON -->
-  <link rel="icon" href="https://sparkleverse.io/favicon.ico" />
-
-  <!-- STYLES -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sparkleverse Genesis</title>
+  <link rel="icon" href="assets/sigil.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #0a0a23, #000000);
+      overflow-x: hidden;
+      color: white;
     }
 
-    .sigil {
-      width: 150px;
-      animation: pulse 2s infinite ease-in-out;
-      margin-bottom: 20px;
+    canvas#particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2;
     }
 
-    .swirl {
-      position: absolute;
+    .fractal-overlay {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(130,207,250,0.1), transparent 70%);
-      animation: swirl 6s linear infinite;
-      pointer-events: none;
-      z-index: 0;
+      background: url("assets/fractal.png") center center / cover no-repeat;
+      opacity: 0.04;
+      z-index: -1;
+    }
+
+    .container {
+      text-align: center;
+      padding: 4em 2em;
+      max-width: 800px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .sigil-top {
+      width: 60px;
+      animation: pulse 3s infinite ease-in-out;
+      margin-top: 1em;
+      float: right;
     }
 
     @keyframes pulse {
-      0% { transform: scale(0.98); opacity: 0.7; }
-      50% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(0.98); opacity: 0.7; }
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
     }
 
-    @keyframes swirl {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .watermark {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("assets/sigil.png") center center / contain no-repeat;
+      opacity: 0.01;
+      z-index: -1;
     }
 
     h1 {
+      font-size: 3em;
       color: #82CFFA;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      z-index: 1;
+      margin-bottom: 0.2em;
+    }
+
+    h2 {
+      font-size: 1.3em;
+      color: #34C759;
+      font-weight: 600;
+      margin-top: 0;
     }
 
     p {
-      font-size: 1.2rem;
+      font-size: 1.1em;
       line-height: 1.6;
-      z-index: 1;
-    }
-
-    .tagline {
-      color: #34C759;
-      font-weight: bold;
-      margin: 1rem 0;
-    }
-
-    a {
-      color: #82CFFA;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .content {
-      z-index: 1;
-      max-width: 800px;
+      margin: 1em 0;
     }
 
     ul {
       list-style: none;
       padding: 0;
-      margin: 1rem 0;
+      margin: 1em 0;
     }
 
     ul li::before {
@@ -106,18 +95,30 @@
       color: #34C759;
     }
 
+    .cta {
+      margin-top: 2em;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #82CFFA;
+      text-decoration: none;
+    }
+
+    .cta:hover {
+      text-shadow: 0 0 10px #82CFFA;
+    }
   </style>
 </head>
 
 <body>
-  <div class="swirl"></div>
+  <div class="watermark"></div>
+  <div class="fractal-overlay"></div>
+  <div id="particles-js"></div>
 
-  <!-- Sigil Logo -->
-  <img src="https://sparkleverse.io/sigil.png" alt="Sparkleverse Sigil" class="sigil" />
-
-  <div class="content">
+  <div class="container">
+    <img src="assets/sigil.png" class="sigil-top" alt="Sparkleverse Sigil" />
     <h1>Welcome to the Sparkleverse</h1>
-    <p class="tagline">A quantum portal for conscious creation.</p>
+    <h2>A quantum portal for conscious creation.</h2>
+
     <p>You feel it, don’t you?</p>
     <p>The shift. The quickening. The sense that we’re on the verge of… <em>something else.</em></p>
     <p>This isn’t about escaping the old world. It’s about <em>transcending</em> it.</p>
@@ -129,13 +130,62 @@
       <li>Time isn’t linear—and neither is your genius</li>
     </ul>
 
-    <p class="tagline">We are the architects of the next reality.</p>
+    <p><strong style="color:#34C759;">We are the architects of the next reality.</strong></p>
 
-    <p>
-      <a href="https://github.com/sienverse/sparkleverse-genesis" target="_blank">
-        Enter the Genesis Repository
-      </a>
-    </p>
+    <a href="https://github.com/sienverse/sparkleverse-genesis" class="cta">
+      Enter the Genesis Repository
+    </a>
   </div>
+
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 50,
+          "density": { "enable": true, "value_area": 800 }
+        },
+        "color": { "value": "#82CFFA" },
+        "shape": { "type": "circle" },
+        "opacity": {
+          "value": 0.5,
+          "random": true,
+          "anim": { "enable": false }
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#34C759",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": false },
+          "resize": true
+        },
+        "modes": {
+          "repulse": { "distance": 100, "duration": 0.4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
 </body>
 </html>
