@@ -2,151 +2,295 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sparkleverse Genesis</title>
-  <link rel="icon" href="assets/images/sigil-icon.png" />
-  <meta property="og:title" content="Sparkleverse Genesis Portal" />
-  <meta property="og:image" content="https://sienverse.github.io/sparkleverse-genesis/assets/images/sigil-icon.png" />
-  <meta property="og:description" content="A quantum portal for conscious creation. Enter the Genesis." />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sparkleverse (Genesis Phase)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" />
   <style>
-    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Quicksand', sans-serif;
-      color: white;
-      overflow-x: hidden;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
     }
-    video.bg {
+
+    #background-video {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      z-index: -3;
+      z-index: 0;
     }
-    .watermark {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url("assets/images/sigil-watermark.png") center center / contain no-repeat;
-      opacity: 0.02;
-      z-index: -2;
-    }
-    .fractal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-    }
+
     .container {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
       text-align: center;
-      padding: 4em 1em;
-      max-width: 800px;
-      margin: auto;
     }
-    .sigil-top {
-      width: 60px;
-      animation: glow 3s infinite ease-in-out;
-      margin-top: 1em;
-    }
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 5px #34C759); }
-      50% { filter: drop-shadow(0 0 15px #82CFFA); }
-    }
+
     h1 {
-      font-size: 2.8em;
+      font-size: 3em;
       color: #82CFFA;
-      margin: 0.5em 0 0.2em;
+      margin-bottom: 0.5em;
     }
-    h2 {
-      font-size: 1.4em;
-      color: #34C759;
-      margin-top: 0;
-    }
-    p, ul {
-      font-size: 1.1em;
+
+    p {
+      max-width: 800px;
+      margin: 0.3em 0;
       line-height: 1.6;
     }
-    ul { list-style: none; padding: 0; }
-    ul li::before {
-      content: "✦ ";
-      color: #34C759;
+
+    #ignite-button {
+      background-color: #34C759;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
     }
-    .cta {
-      display: inline-block;
-      margin-top: 2em;
-      font-size: 1.2em;
+
+    #ignite-button:hover {
+      opacity: 0.8;
+    }
+
+    #spark-icon {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #spark-icon.active {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px 10px #82CFFA;
+    }
+
+    #challenge-panel {
+      position: fixed;
+      bottom: -300px;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      transition: bottom 0.5s ease;
+      z-index: 20;
+    }
+
+    #challenge-panel.active {
+      bottom: 0;
+    }
+
+    .challenge {
+      margin-bottom: 20px;
+    }
+
+    .challenge h3 {
+      color: #82CFFA;
+      margin-bottom: 0.3em;
+    }
+
+    .challenge button,
+    .challenge select,
+    .challenge input {
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+    }
+
+    .challenge button {
+      background-color: #34C759;
+      color: white;
+      cursor: pointer;
+    }
+
+    .challenge button:disabled {
+      background-color: #555;
+      cursor: default;
+    }
+
+    .invite {
+      color: #34C759;
       font-weight: bold;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    ul li::before {
+      content: '✨ ';
+    }
+
+    a {
       color: #82CFFA;
       text-decoration: none;
     }
-    .cta:hover {
-      text-shadow: 0 0 10px #82CFFA;
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <video class="bg" autoplay muted loop playsinline>
-    <source src="assets/video/background-loop.mp4" type="video/mp4">
+  <video id="background-video" autoplay muted loop playsinline>
+    <source src="assets/video/background-loop.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
   </video>
-  <div class="watermark"></div>
-  <div id="particles-js" class="fractal-overlay"></div>
 
   <div class="container">
-    <img src="assets/images/sigil-icon.png" class="sigil-top" alt="Sparkleverse Sigil" />
-    <h1>Welcome to the Sparkleverse</h1>
-    <h2>A quantum portal for conscious creation.</h2>
+    <img src="assets/images/sigil-icon.png" alt="Sparkleverse Sigil" id="spark-icon" />
+    <h1>Sparkleverse</h1>
     <p>You feel it, don’t you?</p>
     <p>The shift. The quickening. The sense that we’re on the verge of… <em>something else.</em></p>
     <p>This isn’t about escaping the old world. It’s about <em>transcending</em> it.</p>
-    <p>We’re not building a platform. We’re birthing a <strong>possibility field</strong>.</p>
-
+    <p>We’re not building a platform. We’re birthing a <em>possibility field.</em></p>
+    <p>A space where:</p>
     <ul>
       <li>Every soul is a frequency worth hearing</li>
       <li>Ideas unfold like fractals, not flowcharts</li>
-      <li>Time isn’t linear—and neither is your genius</li>
+      <li>Time isn’t linear, and neither is your genius</li>
     </ul>
+    <p>This is the Genesis of the Sparkleverse.</p>
+    <p>A quantum garden for world-weavers.</p>
+    <p>A soul-tech nexus for those who know:</p>
+    <p class="invite">We are the architects of the next reality.</p>
+    <p>If you resonate…<br />
+    If you’re ready to build beyond the flatland…<br />
+    If you hear the call of the <em>multiverse unfolding</em>…</p>
+    <p><a href="https://github.com/sienverse/sparkleverse-genesis">Welcome home.</a></p>
 
-    <p><strong style="color:#34C759;">We are the architects of the next reality.</strong></p>
-    <a href="https://github.com/sienverse/sparkleverse-genesis" class="cta">Enter the Genesis Repository</a>
+    <button id="ignite-button">Ignite Your Genesis Spark</button>
   </div>
 
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <div id="challenge-panel">
+    <div class="challenge" id="challenge-1">
+      <h3>Resonance Check</h3>
+      <p>What resonates most with you in this new world?</p>
+      <button data-reward="pulse-teal">Quantum Creativity</button>
+      <button data-reward="pulse-green">Emotional Empowerment</button>
+      <button data-reward="pulse-blue">Collective Co-creation</button>
+      <button data-reward="pulse-purple">Building Beyond the Flatland</button>
+    </div>
+
+    <div class="challenge" id="challenge-2">
+      <h3>Sparkleverse Seedling</h3>
+      <p>Plant a sentence. What would you grow in this garden?</p>
+      <input type="text" id="seedling-input" placeholder="Type your seed..." />
+      <button data-reward="seedling">Plant Your Seed</button>
+    </div>
+
+    <div class="challenge" id="challenge-3">
+      <h3>Join Genesis Circle</h3>
+      <p>Want to be part of the Genesis Council?</p>
+      <button onclick="window.open('https://github.com/sienverse/sparkleverse-genesis')">Explore the Possibilities</button>
+    </div>
+
+    <div class="challenge" id="challenge-4">
+      <h3>What's Your Frequency?</h3>
+      <p>Choose your base essence...</p>
+      <select id="frequency-select">
+        <option value="visionary">Visionary</option>
+        <option value="builder">Builder</option>
+        <option value="storyweaver">Storyweaver</option>
+        <option value="guardian">Guardian</option>
+      </select>
+      <button data-reward="frequency">Embrace Your Frequency</button>
+    </div>
+  </div>
+
   <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 35, "density": { "enable": true, "value_area": 700 }},
-        "color": { "value": "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.4, "random": true },
-        "size": { "value": 2.5, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 100,
-          "color": "#82CFFA",
-          "opacity": 0.3,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 1,
-          "random": true,
-          "direction": "none",
-          "out_mode": "out"
-        }
-      },
-      "interactivity": {
-        "events": {
-          "onhover": { "enable": true, "mode": "repulse" },
-          "resize": true
-        },
-        "modes": {
-          "repulse": { "distance": 75, "duration": 0.4 }
-        }
-      },
-      "retina_detect": true
+    const sparkIcon = document.getElementById("spark-icon");
+    const igniteButton = document.getElementById("ignite-button");
+    const challengePanel = document.getElementById("challenge-panel");
+
+    let sparkState = {
+      activated: false,
+      challenges: {
+        "challenge-1": false,
+        "challenge-2": false,
+        "challenge-3": false,
+        "challenge-4": false
+      }
+    };
+
+    // Load saved state
+    if (localStorage.getItem("sparkState")) {
+      sparkState = JSON.parse(localStorage.getItem("sparkState"));
+    }
+
+    function saveSparkState() {
+      localStorage.setItem("sparkState", JSON.stringify(sparkState));
+    }
+
+    // Handle ignite
+    igniteButton.addEventListener("click", () => {
+      sparkIcon.classList.add("active");
+      challengePanel.classList.add("active");
+      igniteButton.style.display = "none";
+      sparkState.activated = true;
+      saveSparkState();
     });
+
+    // Handle challenge buttons
+    document.querySelectorAll(".challenge button").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const challengeId = e.target.closest(".challenge").id;
+        e.target.disabled = true;
+        sparkState.challenges[challengeId] = true;
+        saveSparkState();
+
+        // Reward visuals
+        const reward = e.target.dataset.reward;
+        switch (reward) {
+          case "pulse-teal":
+            sparkIcon.style.boxShadow = "0 0 25px 8px #00FFFF";
+            break;
+          case "pulse-green":
+            sparkIcon.style.boxShadow = "0 0 25px 8px #34C759";
+            break;
+          case "pulse-blue":
+            sparkIcon.style.boxShadow = "0 0 25px 8px #4F90FF";
+            break;
+          case "pulse-purple":
+            sparkIcon.style.boxShadow = "0 0 25px 8px #B580FF";
+            break;
+        }
+
+        setTimeout(() => {
+          sparkIcon.style.boxShadow = "none";
+        }, 1500);
+      });
+    });
+
+    // Restore saved state
+    if (sparkState.activated) {
+      sparkIcon.classList.add("active");
+      challengePanel.classList.add("active");
+      igniteButton.style.display = "none";
+    }
+
+    for (let id in sparkState.challenges) {
+      if (sparkState.challenges[id]) {
+        const buttons = document.querySelectorAll(`#${id} button`);
+        buttons.forEach(b => b.disabled = true);
+      }
+    }
   </script>
 </body>
 </html>
