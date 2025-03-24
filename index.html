@@ -77,6 +77,30 @@
       box-shadow: 0 0 20px 10px #82CFFA;
     }
 
+    .fractal-pulse {
+      animation: fractal-pulse 1s ease-out;
+      transform-origin: center;
+    }
+
+    @keyframes fractal-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 20px 10px rgba(130, 207, 250, 0.7);
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 0;
+        box-shadow: 0 0 0 0 rgba(130, 207, 250, 0);
+      }
+    }
+
+    .genesis-ring {
+      border: 2px solid #FFC59E;
+      border-radius: 50%;
+      box-shadow: 0 0 25px 5px #FFC59E;
+    }
+
     #challenge-panel {
       position: fixed;
       bottom: -300px;
@@ -145,6 +169,21 @@
     a:hover {
       text-decoration: underline;
     }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      #ignite-button {
+        font-size: 1em;
+      }
+
+      .challenge button {
+        font-size: 0.9em;
+        padding: 8px 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -198,7 +237,7 @@
     <div class="challenge" id="challenge-3">
       <h3>Join Genesis Circle</h3>
       <p>Want to be part of the Genesis Council?</p>
-      <button onclick="window.open('https://github.com/sienverse/sparkleverse-genesis')">Explore the Possibilities</button>
+      <button data-reward="ring" onclick="window.open('https://github.com/sienverse/sparkleverse-genesis')">Explore the Possibilities</button>
     </div>
 
     <div class="challenge" id="challenge-4">
@@ -229,7 +268,6 @@
       }
     };
 
-    // Load saved state
     if (localStorage.getItem("sparkState")) {
       sparkState = JSON.parse(localStorage.getItem("sparkState"));
     }
@@ -238,7 +276,6 @@
       localStorage.setItem("sparkState", JSON.stringify(sparkState));
     }
 
-    // Handle ignite
     igniteButton.addEventListener("click", () => {
       sparkIcon.classList.add("active");
       challengePanel.classList.add("active");
@@ -247,7 +284,6 @@
       saveSparkState();
     });
 
-    // Handle challenge buttons
     document.querySelectorAll(".challenge button").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const challengeId = e.target.closest(".challenge").id;
@@ -255,7 +291,6 @@
         sparkState.challenges[challengeId] = true;
         saveSparkState();
 
-        // Reward visuals
         const reward = e.target.dataset.reward;
         switch (reward) {
           case "pulse-teal":
@@ -270,6 +305,13 @@
           case "pulse-purple":
             sparkIcon.style.boxShadow = "0 0 25px 8px #B580FF";
             break;
+          case "seedling":
+            sparkIcon.classList.add("fractal-pulse");
+            setTimeout(() => sparkIcon.classList.remove("fractal-pulse"), 1000);
+            break;
+          case "ring":
+            sparkIcon.classList.add("genesis-ring");
+            break;
         }
 
         setTimeout(() => {
@@ -278,7 +320,6 @@
       });
     });
 
-    // Restore saved state
     if (sparkState.activated) {
       sparkIcon.classList.add("active");
       challengePanel.classList.add("active");
@@ -287,8 +328,7 @@
 
     for (let id in sparkState.challenges) {
       if (sparkState.challenges[id]) {
-        const buttons = document.querySelectorAll(`#${id} button`);
-        buttons.forEach(b => b.disabled = true);
+        document.querySelectorAll(`#${id} button`).forEach(b => b.disabled = true);
       }
     }
   </script>
